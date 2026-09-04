@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetsChef</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+ <h1>Testing Testing</h1>  
+
+
+ <h2>Write a post:</h2>
+
+
+    <form method="POST" action="/submit">
+        <div>
+            <label for="file">Upload a picture of your pets meal</label>
+            <input type="file" id="file" name="file" multiple>
+        </div>
+
+        <div>
+            <label for="description">Write a description for your pets meal :D</label>
+            <input type="text" id="description" name="description">
+        </div>
+
+        <div>
+            <button type="submit">Post</button>
+        </div>
+    </form>
+
+    <% if (locals.image_file && locals.image_description) { %>
+        <img src=<%= image_file %>>
+
+        <h3><%= image_description %></h1>
+    
+    <%}%>
+
+   
+
+
+  
+
+ 
+</body>
+</html>
