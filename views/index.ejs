@@ -13,10 +13,10 @@
  <h2>Write a post:</h2>
 
 
-    <form method="POST" action="/submit">
+    <form method="POST" action="/submit" enctype="multipart/form-data">
         <div>
             <label for="file">Upload a picture of your pets meal</label>
-            <input type="file" id="file" name="file" multiple>
+            <input type="file" id="file" name="file" accept="image/png, image/jpg">
         </div>
 
         <div>
@@ -29,10 +29,15 @@
         </div>
     </form>
 
-    <% if (locals.image_file && locals.image_description) { %>
-        <img src=<%= image_file %>>
+    <% if (locals.uploads) { %>
+        <% uploads.forEach(function(upload){%>
+            
+            <img src="<%= upload.postImage %>">
 
-        <h3><%= image_description %></h1>
+            <h3><%= upload.postMessage%></h3>
+
+        <%} )%>
+      
     
     <%}%>
 
