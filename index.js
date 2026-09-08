@@ -48,6 +48,8 @@ app.post("/submit", upload.single('file'),(req,res)=>{
     res.render('index', {uploads: posts })
 })
 
+//Unless you nest routes, make sure the number of segments in the endpoint match
+// with what is in your code.
 app.patch('/submit/:postID',(req,res)=>{
     const  {body, params: { postID}, } = req;
 
