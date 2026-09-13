@@ -16,17 +16,25 @@ var id_num = 0
 const upload = multer({dest: 'public/user_images'})
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
+app.use(express.json())
 
 app.listen(port, ()=>{
     console.log('Listening on', port)
 })
 app.get("/", (req,res)=>{
-    res.render('index')
+    res.render('index', {uploads: posts})
 })
 
 //test to see if users outputs
 app.get("/submit/posts", (req,res)=>{
+  
     res.send(posts)
+
+})
+
+app.get("/edit", (req,res)=>{
+    const postID = req.query.id;
+    res.render('edit', {postID})
 
 })
 app.post("/submit", upload.single('file'),(req,res)=>{
@@ -55,7 +63,7 @@ app.patch('/submit/:postID',(req,res)=>{
 
     const parsedId = parseInt(postID) //if parsedID is not a number send error
     if(isNaN(parsedId)){
-        return res.sendStatus(400);
+        return res.status(400).json({error: 'Invalid post ID'});
     }
 
     const findPostIndex = posts.findIndex(
@@ -63,14 +71,15 @@ app.patch('/submit/:postID',(req,res)=>{
     )
 
     if (findPostIndex === -1){
-        return res.sendStatus(404);
+        return res.send(404).json({error: 'Post not found'});
     }
 
-    posts[findPostIndex] = {...posts[findPostIndex],...body};
+    posts[findPostIndex] = {...posts[findPostIndex], postMessage: body.description};
 
-    return res.sendStatus(200);
+    return res.status(200).json({success: true});
 
 
 
 
 })
+

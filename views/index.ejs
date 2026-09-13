@@ -29,12 +29,21 @@
         </div>
     </form>
 
+   
+
     <% if (locals.uploads) { %>
         <% uploads.forEach(function(upload){%>
             
             <img src="<%= upload.postImage %>">
 
             <h3><%= upload.postMessage%></h3>
+
+            <div>
+           <a href="/edit?id=<%=upload.postID%>">Edit</a>
+
+           
+
+            </div>
 
         <%} )%>
       

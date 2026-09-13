@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>Edit the text of your post</h1>
+    <form id="editForm" data-post-id="<%= postID %>">
+        <div>
+            <label for="new_description">Edit your post here</label>
+            <input type="text" id="new_description" name="description">
+            <button type="submit">Edit</button>
+        </div>
+
+    </form>
+    <script>
+        document.getElementById('editForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+      
+          const form = document.getElementById('editForm');
+          const postId = form.dataset.postId;
+      
+          const data = {
+            description: document.getElementById('new_description').value
+          };
+      
+          const res = await fetch(`/submit/${postId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          });
+
+          if(res.ok){
+            window.location.href = "/"
+          }else{
+            console.log("edit failed")
+          }
+
+          
+      
+          const result = await res.json();
+          console.log(result);
+
+      
+      
+        });
+      </script>
+</body>
+
+</html>
