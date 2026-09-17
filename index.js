@@ -37,6 +37,12 @@ app.get("/edit", (req,res)=>{
     res.render('edit', {postID})
 
 })
+
+app.get("/delete", (req,res)=>{
+    const postID = req.query.id;
+    res.render('delete', {postID})
+
+})
 app.post("/submit", upload.single('file'),(req,res)=>{
     console.log(req.body)
     console.log(req.file)
@@ -71,7 +77,7 @@ app.patch('/submit/:postID',(req,res)=>{
     )
 
     if (findPostIndex === -1){
-        return res.send(404).json({error: 'Post not found'});
+        return res.status(404).json({error: 'Post not found'});
     }
 
     posts[findPostIndex] = {...posts[findPostIndex], postMessage: body.description};
@@ -82,4 +88,25 @@ app.patch('/submit/:postID',(req,res)=>{
 
 
 })
+
+app.delete("/submit/:postID", (req,res)=>{
+    const{ postID }= req.params
+
+    const parsedId = parseInt(postID);
+    if(isNaN(parsedId)){
+        return res.status(400).json({error: "Post not found!"})
+    }
+    const findPostIndex = posts.findIndex((post) => post.postID === parsedId)
+    if(findPostIndex === -1){
+        return res.status(404).json({error: "Post not found"})
+    }
+
+    posts.splice(findPostIndex,1);
+    //return res.sendStatus(200)
+
+    return res.sendStatus(200)
+
+
+})
+
 

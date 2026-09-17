@@ -40,6 +40,8 @@
 
             <div>
            <a href="/edit?id=<%=upload.postID%>">Edit</a>
+           <button onclick="deletePost('<%=upload.postID %>')">Delete</button>
+           <a href="/delete?id=<%=upload.postID%>">Delete</a>
 
            
 
@@ -54,7 +56,19 @@
 
 
   
+<script>
+    async function deletePost(postID){
+        const res = await fetch(`/submit/${postID}`,{
+            method: 'DELETE'
+        });
 
+        if(res.ok){
+            window.location.reload()
+        }else{
+            alert("Failed to delete post")
+        }
+    }
+</script>
  
 </body>
 </html>
