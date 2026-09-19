@@ -41,7 +41,7 @@
             <div>
            <a href="/edit?id=<%=upload.postID%>">Edit</a>
            <button onclick="deletePost('<%=upload.postID %>')">Delete</button>
-           <a href="/delete?id=<%=upload.postID%>">Delete</a>
+    
 
            
 
@@ -63,6 +63,7 @@
         });
 
         if(res.ok){
+            //window.location.reload() //incorrect! reloading current which was /submit! /submit IS FOR POSTING LMAO NOT GETTING
             window.location.reload()
         }else{
             alert("Failed to delete post")

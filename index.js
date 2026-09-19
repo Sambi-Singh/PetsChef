@@ -38,11 +38,7 @@ app.get("/edit", (req,res)=>{
 
 })
 
-app.get("/delete", (req,res)=>{
-    const postID = req.query.id;
-    res.render('delete', {postID})
 
-})
 app.post("/submit", upload.single('file'),(req,res)=>{
     console.log(req.body)
     console.log(req.file)
@@ -59,7 +55,7 @@ app.post("/submit", upload.single('file'),(req,res)=>{
 
     
     
-    res.render('index', {uploads: posts })
+    res.redirect("/")
 })
 
 //Unless you nest routes, make sure the number of segments in the endpoint match
@@ -82,6 +78,7 @@ app.patch('/submit/:postID',(req,res)=>{
 
     posts[findPostIndex] = {...posts[findPostIndex], postMessage: body.description};
 
+ 
     return res.status(200).json({success: true});
 
 
