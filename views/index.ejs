@@ -17,18 +17,19 @@
 
 
     <form method="POST" action="/submit" enctype="multipart/form-data">
-        <div>
-            <label for="file">Upload a picture of your pets meal</label>
-            <input type="file" id="file" name="file" accept="image/png, image/jpg">
+        <div class="mb-3">
+            <label for="file" class="form-label fw-semibold">Upload a picture of your pets meal</label>
+            <input class="form-control form-control-lg" type="file" id="file" name="file" accept="image/png, image/jpg">
         </div>
 
-        <div>
-            <label for="description">Write a description for your pets meal :D</label>
-            <input type="text" id="description" name="description">
+        <div class="mb-3">
+            <label for="description" class="form-label fw-semibold">Write a description for your pets meal :D</label>
+  
+            <textarea class="form-control fs-5" name ="description" id="description" rows="3"></textarea>
         </div>
 
-        <div>
-            <button type="submit">Post</button>
+        <div class="mt-2">
+            <button  class="btn btn-dark"  type="submit">Post</button>
         </div>
     </form>
 
