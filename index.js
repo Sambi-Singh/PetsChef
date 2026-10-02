@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 const app = express()
-const port = 3000
+
 app.set('view engine', 'ejs');
 
 //mock database
@@ -18,9 +18,12 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
 app.use(express.json())
 
-app.listen(port, ()=>{
-    console.log('Listening on', port)
-})
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 app.get("/", (req,res)=>{
     res.render('index', {uploads: posts})
 })
