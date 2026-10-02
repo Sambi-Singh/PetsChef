@@ -10,22 +10,21 @@
 <body>
     <%- include('partials/header') %>
     <main class="container">
- <h1>Testing Testing</h1>  
+ 
 
-
- <h2>Write a post:</h2>
+<h2 class="fw-semibold mt-4 mb-3">Write a post:</h2>
 
 
     <form method="POST" action="/submit" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="file" class="form-label fw-semibold">Upload a picture of your pets meal</label>
-            <input class="form-control form-control-lg" type="file" id="file" name="file" accept="image/png, image/jpg">
+            <input class="form-control form-control-lg" type="file" id="file" name="file" accept="image/png, image/jpg" required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label fw-semibold">Write a description for your pets meal :D</label>
   
-            <textarea class="form-control fs-5" name ="description" id="description" rows="3"></textarea>
+            <textarea class="form-control fs-5" name ="description" id="description" rows="3" required></textarea>
         </div>
 
         <div class="mt-2">
@@ -33,30 +32,26 @@
         </div>
     </form>
 
-   
-
     <% if (locals.uploads) { %>
-        <% uploads.forEach(function(upload){%>
-            
-            <img src="<%= upload.postImage %>" >
-
-            <h3><%= upload.postMessage%></h3>
-
-            <div>
-           <a href="/edit?id=<%=upload.postID%>">Edit</a>
-           <button onclick="deletePost('<%=upload.postID %>')">Delete</button>
-    
-
-           
-
+        <div class="row g-4 mt-2">
+          <% uploads.forEach(function(upload){ %>
+            <div class="col-12 col-md-4">
+              <div class="card h-100">
+                <img src="<%= upload.postImage %>" class="card-img-top" alt="image of pet food" style="height: 220px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text"><%= upload.postMessage %></p>
+                  <div class="mt-auto">
+                    <a class="btn btn-dark" href="/edit?id=<%= upload.postID %>">Edit</a>
+                    <button class="btn btn-secondary" onclick="deletePost('<%= upload.postID %>')">Delete</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          <% }) %>
+        </div>
+        <% } %>
 
-        <%} )%>
-      
-    
-    <%}%>
-
-</main>
+   </main>
 
     <%- include('partials/footer') %>
 

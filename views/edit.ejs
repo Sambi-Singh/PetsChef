@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Post - PetsChef</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="/main.css">
 </head>
 <body>
-    <h1>Edit the text of your post</h1>
-    <form id="editForm" data-post-id="<%= postID %>">
-        <div>
-            <label for="new_description">Edit your post here</label>
-            <input type="text" id="new_description" name="description">
-            <button type="submit">Edit</button>
-        </div>
+<%- include('partials/header') %>
 
-    </form>
-    <script>
-        document.getElementById('editForm').addEventListener('submit', async (event) => {
-          event.preventDefault();
-      
-          const form = document.getElementById('editForm');
-          const postId = form.dataset.postId;
-      
-          const data = {
-            description: document.getElementById('new_description').value
-          };
-      
-          const res = await fetch(`/submit/${postId}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-          });
+<main class="container">
 
-          if(res.ok){
-            window.location.href = "/"
-          }else{
-            console.log("edit failed")
-          }
+  
+    <h2 class="fw-semibold mt-4 mb-3">Edit the text of your post:</h2>
+ 
 
-          
-      
-          const result = await res.json();
-          console.log(result);
+  <form id="editForm" data-post-id="<%= postID %>">
+    <div class="mb-3">
+      <label for="new_description" class="form-label fw-semibold">Edit your post here</label>
+      <textarea class="form-control fs-5" id="new_description" name="description" rows="3" required></textarea>
+    </div>
 
-      
-      
-        });
-      </script>
+    <div class="mt-2">
+      <button class="btn btn-dark" type="submit">Save</button>
+      <a class="btn btn-secondary" href="/">Cancel</a>
+    </div>
+  </form>
+
+</main>
+
+<%- include('partials/footer') %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+document.getElementById('editForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const form = document.getElementById('editForm');
+  const postId = form.dataset.postId;
+  const data = {
+    description: document.getElementById('new_description').value
+  };
+  const res = await fetch(`/submit/${postId}`, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    window.location.href = "/"
+  } else {
+    console.log("edit failed")
+  }
+
+  const result = await res.json();
+  console.log(result);
+});
+</script>
 </body>
-
 </html>
